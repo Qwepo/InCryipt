@@ -4,7 +4,8 @@ import (
 	"errors"
 	"os"
 
-	"gopkg.in/yaml.v3"
+	"github.com/joho/godotenv"
+	"gopkg.in/yaml.v2"
 )
 
 type Config struct {
@@ -20,13 +21,17 @@ type LoggerConfig struct {
 type PostgresConfig struct {
 	Database string `yaml:"database"`
 	Username string `yaml:"username"`
-	Password string `yaml:"password"`
+	Password string 
 	Address  string `yaml:"address"`
 	Port     string `yaml:"port"`
 }
 
 func NewConfig() (*Config, error) {
 	conf := new(Config)
+	err := setEnv(conf)
+	if err != nil {
+		return nil, err
+	}
 
 	file, err := os.ReadFile("../../config.yaml")
 	if err != nil {
@@ -36,9 +41,20 @@ func NewConfig() (*Config, error) {
 	if err != nil {
 		return nil, err
 	}
+	conf.Postgres.Password = os.Getenv("POSTGRES_PASS")
 	return conf, nil
 }
+func setEnv(conf *Config) error {
+	err := godotenv.Load("../../.env")
+	if err != nil {
+		return err
+	}
 
+	conf.Postgres.Password = os.Getenv("POSTGRES_PASS")
+
+	return nil
+
+}
 func (c *Config) Load(configFile []byte) error {
 
 	if configFile == nil {

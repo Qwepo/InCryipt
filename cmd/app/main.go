@@ -15,6 +15,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
 	// create logger
 	log := logger.NewLogger(conf)
 	log.Info().Msg("Start")
