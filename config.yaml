@@ -1,0 +1,9 @@
+logger:
+  level: debug
+  filename: incryipt.log
+posrgres:
+  database: echo  
+  username: user  
+  password: asd
+  address: postgres
+  port: 5432
