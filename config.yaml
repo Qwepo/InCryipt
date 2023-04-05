@@ -3,6 +3,6 @@ logger:
   filename: ../../incryipt.log
 posrgres:
   database: incryiptDB  
-  username: admin  
-  address: postgres
+  username: admin
+  address: 127.0.0.1
   port: 5432

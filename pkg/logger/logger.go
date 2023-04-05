@@ -3,12 +3,10 @@ package logger
 import (
 	"os"
 
-	internal "github.com/Qwepo/InCryipt/Internal"
+	internal "github.com/Qwepo/InCryipt/internal"
 	"github.com/natefinch/lumberjack"
 	"github.com/rs/zerolog"
 )
-
-
 
 func NewLogger(conf *internal.Config) *zerolog.Logger {
 	level := setLevel(conf)

@@ -21,7 +21,7 @@ type LoggerConfig struct {
 type PostgresConfig struct {
 	Database string `yaml:"database"`
 	Username string `yaml:"username"`
-	Password string 
+	Password string
 	Address  string `yaml:"address"`
 	Port     string `yaml:"port"`
 }

@@ -2,9 +2,8 @@ package main
 
 import (
 	"context"
-	"fmt"
 
-	internal "github.com/Qwepo/InCryipt/Internal"
+	internal "github.com/Qwepo/InCryipt/internal"
 	"github.com/Qwepo/InCryipt/pkg/database/postgres"
 	"github.com/Qwepo/InCryipt/pkg/logger"
 )
@@ -18,10 +17,16 @@ func main() {
 
 	// create logger
 	log := logger.NewLogger(conf)
-	log.Info().Msg("Start")
-	_, err = postgres.NewClient(ctx, conf)
+	// connect to postgres
+	conn, err := postgres.NewClient(ctx, conf)
 	if err != nil {
-		fmt.Println(err)
+		log.Fatal().Str("service", "postgres").Err(err).Send()
+	}
+	log.Info().Msg("Postgress Conected!")
+
+	err = conn.Migrate()
+	if err != nil {
+		log.Fatal().Str("service", "postgres").Err(err).Send()
 	}
 
 }
