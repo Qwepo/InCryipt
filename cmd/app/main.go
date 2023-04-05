@@ -24,9 +24,12 @@ func main() {
 	}
 	log.Info().Msg("Postgress Conected!")
 
+	// Migratons
 	err = conn.Migrate()
 	if err != nil {
 		log.Fatal().Str("service", "postgres").Err(err).Send()
 	}
+	log.Info().Msg("Migrations succsess!")
+
 
 }
