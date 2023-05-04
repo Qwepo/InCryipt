@@ -1,9 +1,7 @@
 DROP TABLE wallet;
 DROP TABLE chats_users;
-DROP TABLE chats;
 DROP TABLE message;
-DROP TABLE sessions;
-DROP TABLE users;
+DROP TABLE chats;
 
 DROP TYPE type_chat;
 DROP TYPE type_message;

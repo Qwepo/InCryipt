@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	ctx := context.TODO()
+	ctx := context.Background()
 	conf, err := internal.NewConfig()
 	if err != nil {
 		panic(err)
@@ -30,6 +30,5 @@ func main() {
 		log.Fatal().Str("service", "postgres").Err(err).Send()
 	}
 	log.Info().Msg("Migrations succsess!")
-
 
 }

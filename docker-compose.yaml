@@ -13,5 +13,15 @@ services:
       - ./postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-
+  
+  testdb:
+      image: postgres:latest
+      restart: always
+      environment:
+        POSTGRES_USER: test
+        POSTGRES_PASSWORD: test
+        POSTGRES_DB: test
+      ports:
+        - "5431:5432"
+      
 

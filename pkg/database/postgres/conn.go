@@ -13,8 +13,9 @@ import (
 )
 
 type DB struct {
-	*pgxpool.Conn
-	url string
+	*pgxpool.Pool
+	url            string
+	migrationspath string
 }
 
 func NewClient(ctx context.Context, conf *internal.Config) (*DB, error) {
@@ -24,19 +25,17 @@ func NewClient(ctx context.Context, conf *internal.Config) (*DB, error) {
 	if err != nil {
 		return nil, err
 	}
-	conn, err := pool.Acquire(ctx)
-	if err != nil {
-		return nil, err
-	}
+
 	if pool.Ping(ctx) != nil {
 		return nil, err
 	}
 
-	return &DB{Conn: conn, url: url}, nil
+	return &DB{Pool: pool, url: url, migrationspath: conf.Postgres.MigrationsPaht}, nil
 }
 
 func (db *DB) Migrate() error {
-	m, err := migrate.New("file://../../pkg/database/migrations", db.url)
+	mgpath := fmt.Sprintf("file://%s", db.migrationspath)
+	m, err := migrate.New(mgpath, db.url)
 	if err != nil {
 		return err
 	}

@@ -14,18 +14,10 @@ CREATE TABLE users
     email varchar(150) NOT NULL,
     password varchar(150) NOT NULL,
     created_at bigint NOT NULL,
-    updated_at bigint,
+    updated_at bigint
 
 );
 
-CREATE TABLE sessions 
-(
-    id bigserial PRIMARY KEY,
-    user_id bigint NOT NULL,
-    token varchar(255) NOT NULL,
-
-    FOREIGN KEY (user_id) REFERENCES users (id)
-);
 
 CREATE TABLE chats (
 
@@ -34,6 +26,7 @@ CREATE TABLE chats (
     type type_chat NOT NULL,
     created_at bigint NOT NULL
 );
+
 CREATE TABLE chats_users 
 (
     id bigserial PRIMARY KEY,
@@ -54,7 +47,6 @@ CREATE TABLE message
     content_text text NOT NULL,
     created_at bigint NOT NULL,
     updated_at bigint,
-,
 
     FOREIGN KEY (chat_id) REFERENCES chats (id),
     FOREIGN KEY (sender) REFERENCES users (id)

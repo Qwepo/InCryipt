@@ -11,6 +11,8 @@ import (
 type Config struct {
 	Logger   LoggerConfig   `yaml:"logger"`
 	Postgres PostgresConfig `yaml:"posrgres"`
+	Redis    RedisConfig    `yaml:"redis"`
+	Sessions SessionsConfig `yaml:"sessions"`
 }
 
 type LoggerConfig struct {
@@ -19,11 +21,22 @@ type LoggerConfig struct {
 }
 
 type PostgresConfig struct {
-	Database string `yaml:"database"`
-	Username string `yaml:"username"`
-	Password string
+	Database       string `yaml:"database"`
+	Username       string `yaml:"username"`
+	Password       string
+	Address        string `yaml:"address"`
+	Port           string `yaml:"port"`
+	MigrationsPaht string `yaml:"migrationspath"`
+}
+
+type RedisConfig struct {
 	Address  string `yaml:"address"`
 	Port     string `yaml:"port"`
+	Password string
+}
+
+type SessionsConfig struct {
+	LifeHours int `yaml:"life_hours"`
 }
 
 func NewConfig() (*Config, error) {
@@ -51,6 +64,7 @@ func setEnv(conf *Config) error {
 	}
 
 	conf.Postgres.Password = os.Getenv("POSTGRES_PASS")
+	conf.Redis.Password = os.Getenv("REDIS_PASS")
 
 	return nil
 
