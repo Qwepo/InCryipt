@@ -86,7 +86,6 @@ func (s *service) UpdateSession(ctx context.Context, id types.PK, token string) 
 }
 
 func (s *service) DeleteSession(ctx context.Context, id types.PK, token string) error {
-
 	return s.redis.HDel(ctx, key(id), token).Err()
 }
 
